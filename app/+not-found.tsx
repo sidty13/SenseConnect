@@ -7,7 +7,7 @@ export default function NotFoundScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Oops! This screen doesn't exist.</Text>
-      <TouchableOpacity style={styles.button} onPress={() => router.push('..')}>
+      <TouchableOpacity style={styles.button} onPress={() => router.replace('/Homescreen')}>
         <Text style={styles.buttonText}>Go to Home Screen</Text>
       </TouchableOpacity>
     </View>
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#0D47A1', // Consistent with the HomeScreen background
+    backgroundColor: '#0D47A1',
   },
   title: {
     fontSize: 20,
