@@ -4,6 +4,8 @@ import * as Clipboard from "expo-clipboard"; // Import Clipboard API
 import * as Speech from "expo-speech"; // Import Speech API
 import { Feather } from "@expo/vector-icons"; // Import icons
 
+
+
 const brailleMap: { [key: string]: string } = {
   "a": "⠁", "b": "⠃", "c": "⠉", "d": "⠙", "e": "⠑",
   "f": "⠋", "g": "⠛", "h": "⠓", "i": "⠊", "j": "⠚",
