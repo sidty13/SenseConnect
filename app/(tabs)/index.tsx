@@ -1,20 +1,20 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { useRouter } from "expo-router"; // Import router
 
-type HomeScreenProps = {
-  navigation: any;
-};
+const HomeScreen: React.FC = () => {
+  const router = useRouter(); // Use router for navigation
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeText}>Welcome</Text>
       <Text style={styles.brailleText}>⠺⠑⠇⠉⠕⠍⠑</Text>
-      
+
       <Image source={require("@/assets/images/logo.png")} style={styles.logo} />
       <Text style={styles.title}>Bridging touch and technology</Text>
-      
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("NextScreen")}>
+
+      {/* Navigate to Text2Braille screen */}
+      <TouchableOpacity style={styles.button} onPress={() => router.push("/text2braille")}>
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
     </View>
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F8EDEB", // Pastel peach background
+    backgroundColor: "#F8EDEB",
     padding: 20,
   },
   logo: {
@@ -37,26 +37,26 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#6D597A", // Modern muted purple
+    color: "#6D597A",
     marginBottom: 25,
-    fontFamily: "Poppins-Bold", // Creative font
+    fontFamily: "Poppins-Bold",
   },
   welcomeText: {
     fontSize: 30,
     fontWeight: "bold",
-    color:"rgb(59, 107, 167)", // Deep muted blue
+    color: "rgb(59, 107, 167)",
     marginBottom: 10,
-    fontFamily: "Poppins-SemiBold", // Modern font
+    fontFamily: "Poppins-SemiBold",
   },
   brailleText: {
     fontSize: 26,
     fontWeight: "bold",
-    color: "#6D597A", // Muted purple
+    color: "#6D597A",
     marginBottom: 40,
     fontFamily: "Poppins-Regular",
   },
   button: {
-    backgroundColor: "#B56576", // Pastel rose button
+    backgroundColor: "#B56576",
     paddingVertical: 14,
     paddingHorizontal: 40,
     borderRadius: 8,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   buttonText: {
-    color: "#F8EDEB", // Soft pastel text
+    color: "#F8EDEB",
     fontSize: 20,
     fontWeight: "bold",
     fontFamily: "Poppins-Bold",

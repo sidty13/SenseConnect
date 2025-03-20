@@ -1,43 +1,96 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import * as Clipboard from "expo-clipboard"; // Import Clipboard API
+import * as Speech from "expo-speech"; // Import Speech API
+import { Feather } from "@expo/vector-icons"; // Import icons
 
-type Text2BrailleProps = {
-  navigation: any;
+const brailleMap: { [key: string]: string } = {
+  "a": "⠁", "b": "⠃", "c": "⠉", "d": "⠙", "e": "⠑",
+  "f": "⠋", "g": "⠛", "h": "⠓", "i": "⠊", "j": "⠚",
+  "k": "⠅", "l": "⠇", "m": "⠍", "n": "⠝", "o": "⠕",
+  "p": "⠏", "q": "⠟", "r": "⠗", "s": "⠎", "t": "⠞",
+  "u": "⠥", "v": "⠧", "w": "⠺", "x": "⠭", "y": "⠽", "z": "⠵",
+  "1": "⠼⠁", "2": "⠼⠃", "3": "⠼⠉", "4": "⠼⠙", "5": "⠼⠑",
+  "6": "⠼⠋", "7": "⠼⠛", "8": "⠼⠓", "9": "⠼⠊", "0": "⠼⠚",
+  " ": " ", ".": "⠲", ",": "⠂", "?": "⠦", "!": "⠖", "-": "⠤",
+  "'": "⠄", "\"": "⠦⠴", "/": "⠌", ":": "⠒", ";": "⠆"
 };
 
-const Text2Braille: React.FC<Text2BrailleProps> = ({ navigation }) => {
+const convertToBraille = (text: string): string => {
+  return text
+    .toLowerCase()
+    .split("")
+    .map((char) => brailleMap[char] || char)
+    .join("");
+};
+
+const Text2Braille: React.FC = () => {
   const [text, setText] = useState<string>("");
   const [brailleOutput, setBrailleOutput] = useState<string>("");
 
-  const convertToBraille = () => {
-    const braille = text.split("").map((char: string) => `⠃`).join(" "); // Replace with actual conversion logic
-    setBrailleOutput(braille);
+  const handleConvert = () => {
+    setBrailleOutput(convertToBraille(text));
+  };
+
+  const handleClear = () => {
+    setText("");
+    setBrailleOutput("");
+  };
+
+  const handleCopy = () => {
+    if (brailleOutput) {
+      Clipboard.setStringAsync(brailleOutput);
+      alert("Braille copied to clipboard!");
+    }
+  };
+
+  const handleSpeak = () => {
+    if (text) {
+      Speech.speak(text, {
+        language: "en",
+        pitch: 1.0,
+        rate: 1.0,
+      });
+    }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>SenseConnect</Text>
       <Text style={styles.description}>Bridging touch and technology</Text>
+
       <TextInput
         style={styles.input}
         placeholder="Enter text"
         value={text}
         onChangeText={setText}
       />
-      <TouchableOpacity style={styles.button} onPress={convertToBraille}>
-        <Text style={styles.buttonText}>Convert to Braille</Text>
-      </TouchableOpacity>
+
+      <View style={styles.buttonRow}>
+        <TouchableOpacity style={styles.button} onPress={handleConvert}>
+          <Text style={styles.buttonText}>Convert</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.button, styles.clearButton]} onPress={handleClear}>
+          <Text style={styles.buttonText}>Clear</Text>
+        </TouchableOpacity>
+      </View>
+
       {brailleOutput ? (
         <View style={styles.outputContainer}>
           <Text style={styles.outputLabel}>Braille Output:</Text>
           <Text style={styles.output}>{brailleOutput}</Text>
+
+          <View style={styles.iconRow}>
+            <TouchableOpacity onPress={handleCopy}>
+              <Feather name="copy" size={24} color="#B56576" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleSpeak}>
+              <Feather name="volume-2" size={24} color="#6D597A" />
+            </TouchableOpacity>
+          </View>
         </View>
       ) : null}
-
-      {/* Back to Home Button */}
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("Home")}>
-        <Text style={styles.backButtonText}>Back to Home</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -49,11 +102,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#F8EDEB",
     padding: 20,
-  },
-  logo: {
-    width: 120,
-    height: 120,
-    marginBottom: 20,
   },
   title: {
     fontSize: 32,
@@ -80,21 +128,30 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Poppins-Regular",
   },
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "90%",
+  },
   button: {
     backgroundColor: "#B56576",
     paddingVertical: 14,
-    paddingHorizontal: 40,
+    paddingHorizontal: 30,
     borderRadius: 8,
-    width: "80%",
     alignItems: "center",
     shadowColor: "rgba(0, 0, 0, 0.2)",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  clearButton: {
+    backgroundColor: "#6D597A",
   },
   buttonText: {
     color: "#F8EDEB",
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     fontFamily: "Poppins-Bold",
   },
@@ -119,21 +176,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "#6D597A",
     fontFamily: "Poppins-Regular",
+    marginBottom: 10,
   },
-  backButton: {
-    marginTop: 20,
-    backgroundColor: "#6D597A",
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 8,
-    width: "80%",
-    alignItems: "center",
-  },
-  backButtonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-    fontFamily: "Poppins-Bold",
+  iconRow: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "40%",
   },
 });
 
