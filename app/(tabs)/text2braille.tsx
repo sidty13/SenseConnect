@@ -4,8 +4,6 @@ import * as Clipboard from "expo-clipboard"; // Import Clipboard API
 import * as Speech from "expo-speech"; // Import Speech API
 import { Feather } from "@expo/vector-icons"; // Import icons
 
-
-
 const brailleMap: { [key: string]: string } = {
   "a": "⠁", "b": "⠃", "c": "⠉", "d": "⠙", "e": "⠑",
   "f": "⠋", "g": "⠛", "h": "⠓", "i": "⠊", "j": "⠚",
@@ -30,8 +28,22 @@ const Text2Braille: React.FC = () => {
   const [text, setText] = useState<string>("");
   const [brailleOutput, setBrailleOutput] = useState<string>("");
 
-  const handleConvert = () => {
-    setBrailleOutput(convertToBraille(text));
+  const handleConvert = async () => {
+    setBrailleOutput(convertToBraille(text)); // Convert text to Braille
+
+    try {
+      const response = await fetch("http://192.168.4.1/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `message=${encodeURIComponent(text)}`, // Send entered text (not Braille)
+      });
+
+      const data = await response.text();
+      alert("Response from ESP8266: " + data);
+    } catch (error) {
+      console.error("Error sending to ESP8266:", error);
+      
+    }
   };
 
   const handleClear = () => {
