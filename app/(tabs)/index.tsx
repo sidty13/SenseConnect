@@ -11,12 +11,17 @@ const HomeScreen: React.FC = () => {
       <Text style={styles.brailleText}>⠺⠑⠇⠉⠕⠍⠑</Text>
 
       <Image source={require("@/assets/images/logo.png")} style={styles.logo} />
-      <Text style={styles.title}>Bridging touch and technology</Text>
+      <Text style={styles.title}>Empowering Communication Through Touch</Text>
 
       {/* Navigate to Text2Braille screen */}
+
       <TouchableOpacity style={styles.button} onPress={() => router.push("/Menupage")}>
-        <Text style={styles.buttonText}>Get Started</Text>
-      </TouchableOpacity>
+  <Text style={styles.buttonText}>Get Started</Text>
+</TouchableOpacity>
+
+<TouchableOpacity style={[styles.button, { marginTop: 20, backgroundColor: "#6D597A"  }]} onPress={() => router.push("/aboutus")}>
+  <Text style={styles.buttonText}>Know about us</Text>
+</TouchableOpacity>
     </View>
   );
 };
@@ -75,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default HomeScreen;

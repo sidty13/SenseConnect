@@ -6,7 +6,7 @@ export default function NotFoundScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Oops! This screen doesn't exist.</Text>
+      <Text style={styles.title}>Oops! This screen is in progress!.</Text>
       <TouchableOpacity style={styles.button} onPress={() => router.replace('/(tabs)')}>
         <Text style={styles.buttonText}>Go to Home Screen</Text>
       </TouchableOpacity>

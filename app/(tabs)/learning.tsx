@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { router, useRouter } from "expo-router";
 import {
   View,
   Text,
@@ -83,6 +84,11 @@ const LearningModeScreen: React.FC = () => {
         </View>
       ))}
 
+      {/* Back to Menu Button */}
+      <TouchableOpacity onPress={() => router.push("/Menupage")} style={styles.menuButton}>
+        <Text style={styles.menuButtonText}>⬅ Back to Menu</Text>
+      </TouchableOpacity>
+
       {/* Detailed Description Modal */}
       {selectedCourse && (
         <Modal animationType="slide" transparent={true} visible={!!selectedCourse}>
@@ -153,6 +159,18 @@ const styles = StyleSheet.create({
   },
   startButtonText: {
     color: "#000",
+  },
+  menuButton: {
+    backgroundColor: "#6D76C6",
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  menuButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   modalContainer: {
     flex: 1,

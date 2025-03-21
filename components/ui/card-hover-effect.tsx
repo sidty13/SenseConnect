@@ -24,14 +24,14 @@ export const HoverEffect = ({
       data={items}
       numColumns={2}
       keyExtractor={(item) => item.link}
-      contentContainerStyle={{ paddingVertical: 20 }}
+      contentContainerStyle={{ paddingVertical: 150 }}
       renderItem={({ item, index }) => (
         <TouchableOpacity
           onPress={() => navigation.navigate(item.link as never)}
           onPressIn={() => setHoveredIndex(index)}
           onPressOut={() => setHoveredIndex(null)}
           style={{ flex: 1, padding: 8 }}
-          activeOpacity={0.5}
+          activeOpacity={0.7}
         >
           <View style={{ position: "relative" }}>
             <AnimatePresence>
@@ -41,12 +41,16 @@ export const HoverEffect = ({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 150 }}
-                  className="absolute inset-0 bg-[rgba(30,30,30,0.7)] rounded-3xl"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    backgroundColor: "rgba(30,30,30,0.1)",
+                    borderRadius: 20,
+                  }}
                 />
               )}
             </AnimatePresence>
             <Card>
-              {/* Keep icon directly as passed from parent */}
               {item.icon}
               <CardTitle>{item.title}</CardTitle>
             </Card>
@@ -67,14 +71,17 @@ export const Card = ({
   return (
     <View
       style={{
-        borderRadius: 24,
-        backgroundColor: "#FFFFFF",
-        borderWidth: 1,
-        borderColor: "rgb(240, 102, 123)",
-        height: 220,
-        padding: 30,
-        alignItems: "center", // 👈 centers horizontally
-        justifyContent: "center"
+        borderRadius: 20,
+        backgroundColor: "#ffffff",
+        paddingVertical: 24,
+        paddingHorizontal: 16,
+        alignItems: "center",
+        justifyContent: "center",
+        shadowColor: "#000",
+        shadowOpacity: 0.08,
+        shadowRadius: 6,
+        elevation: 4,
+        height: 150,
       }}
     >
       {children}
@@ -92,13 +99,14 @@ export const CardTitle = ({
   return (
     <Text
       style={{
-        color: "rgb(161, 98, 107)",
-        fontWeight: "bold",
-        fontSize: 15,
+        color: "rgb(161, 70, 90)",
+        fontWeight: "600",
+        fontSize: 14,
         marginTop: 10,
+        textAlign: "center",
       }}
     >
       {children}
-    </Text>
-  );
+    </Text>
+  );
 };

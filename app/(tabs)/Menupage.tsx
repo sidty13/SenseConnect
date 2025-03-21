@@ -28,17 +28,17 @@ export const projects = [
   {
     icon: <Icon name="mic" size={28} color="rgb(236, 114, 133)" />,
     title: "Speech-> Braille",
-    link: "GoogleScreen",
+    link: "+not-found",
   },
   {
     icon: <Icon name="message-circle" size={28} color="rgb(236, 114, 133)" />,
     title: "Live interaction",
-    link: "MetaScreen",
+    link: "+not-found",
   },
   {
     icon: <Icon name="info" size={28} color="rgb(236, 114, 133)" />,
     title: "Guide",
-    link: "AmazonScreen",
+    link: "guide",
   },
   {
     icon: <Icon name="book-open" size={28} color="rgb(236, 114, 133)" />,
@@ -47,4 +47,4 @@ export const projects = [
   },
 ];
 
-export default MenuPage;
+export default MenuPage;
