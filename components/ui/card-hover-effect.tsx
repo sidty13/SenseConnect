@@ -71,8 +71,8 @@ export const Card = ({
         backgroundColor: "#FFFFFF",
         borderWidth: 1,
         borderColor: "rgb(240, 102, 123)",
-        height: 100,
-        padding: 16,
+        height: 220,
+        padding: 30,
         alignItems: "center", // 👈 centers horizontally
         justifyContent: "center"
       }}
@@ -94,7 +94,7 @@ export const CardTitle = ({
       style={{
         color: "rgb(161, 98, 107)",
         fontWeight: "bold",
-        fontSize: 10,
+        fontSize: 15,
         marginTop: 10,
       }}
     >

@@ -14,7 +14,7 @@ const HomeScreen: React.FC = () => {
       <Text style={styles.title}>Bridging touch and technology</Text>
 
       {/* Navigate to Text2Braille screen */}
-      <TouchableOpacity style={styles.button} onPress={() => router.push("/text2braille")}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push("/Menupage")}>
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
     </View>
