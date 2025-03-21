@@ -18,7 +18,7 @@ export const projects = [
   {
     icon: <Icon name="settings" size={28} color="rgb(236, 114, 133)"/> ,
     title: "Settings",
-    link: "StripeScreen",
+    link: "settings",
   },
   {
     icon: <Icon name="type" size={28} color="rgb(236, 114, 133)" />,
@@ -43,7 +43,7 @@ export const projects = [
   {
     icon: <Icon name="book-open" size={28} color="rgb(236, 114, 133)" />,
     title: "Learning Mode",
-    link: "MicrosoftScreen",
+    link: "learning",
   },
 ];
 
